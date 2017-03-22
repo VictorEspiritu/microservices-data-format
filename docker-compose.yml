@@ -66,3 +66,17 @@ services:
         command: php src/Upcasting/client.php
         depends_on:
             - upcasting_server
+
+    json_schema_server:
+        image: microservices-for-everyone/data_formats_base
+        volumes:
+            - ./:/opt
+        command: php -S 0.0.0.0:80 -t src/JSONSchema/server/
+
+    json_schema_client:
+        image: microservices-for-everyone/communication_styles_base
+        volumes:
+            - ./:/opt
+        command: php src/JSONSchema/client.php
+        depends_on:
+            - json_schema_server
