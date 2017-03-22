@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package meetup;
+import "php.proto";
+option (php.package) = "ProtocolBuffers.Meetup";
+
+message UpdateLocation {
+    string address = 1;
+    float latitude = 2;
+    float longitude = 3;
+}

@@ -1,0 +1,68 @@
+version: '3'
+
+services:
+    generic_json_server:
+        image: microservices-for-everyone/data_formats_base
+        build: docker/base/
+        volumes:
+            - ./:/opt
+        command: php -S 0.0.0.0:80 -t src/GenericJSON/server/
+
+    generic_json_client:
+        image: microservices-for-everyone/data_formats_base
+        volumes:
+            - ./:/opt
+        command: php src/GenericJSON/client.php
+        depends_on:
+            - generic_json_server
+
+    custom_json_serialization_server:
+        image: microservices-for-everyone/data_formats_base
+        volumes:
+            - ./:/opt
+        command: php -S 0.0.0.0:80 -t src/CustomJSONSerialization/server/
+
+    custom_json_serialization_client:
+        image: microservices-for-everyone/data_formats_base
+        volumes:
+            - ./:/opt
+        command: php src/CustomJSONSerialization/client.php
+        depends_on:
+            - custom_json_serialization_server
+
+    protocol_buffers_compile:
+        image: microservices-for-everyone/communication_styles_base
+        volumes:
+            - ./:/opt
+        command: vendor/bin/protobuf --include-descriptors -i . -o ./src src/ProtocolBuffers/server/meetup.proto
+
+    protocol_buffers_server:
+        image: microservices-for-everyone/data_formats_base
+        volumes:
+            - ./:/opt
+        command: php -S 0.0.0.0:80 -t src/ProtocolBuffers/server/
+        depends_on:
+            - protocol_buffers_compile
+
+    protocol_buffers_client:
+        image: microservices-for-everyone/communication_styles_base
+        volumes:
+            - ./:/opt
+        command: php src/ProtocolBuffers/client.php
+        depends_on:
+            - protocol_buffers_server
+            - protocol_buffers_compile
+
+    upcasting_server:
+        image: microservices-for-everyone/data_formats_base
+        volumes:
+            - ./:/opt
+        command: php -S 0.0.0.0:80 -t src/Upcasting/server/
+
+    upcasting_client:
+        image: microservices-for-everyone/communication_styles_base
+        volumes:
+            - ./:/opt
+        command: php src/Upcasting/client.php
+        depends_on:
+            - upcasting_server
