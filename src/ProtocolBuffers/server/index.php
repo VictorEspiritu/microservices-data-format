@@ -11,9 +11,6 @@ $stream = fopen('php://input', 'r+b');
 
 $updateLocationDto = UpdateLocation::fromStream($stream);
 
-http_response_code(200);
-header('Content-Type: text/plain');
-
 $domainObject = new Location(
     $updateLocationDto->getAddress(),
     new Geolocation(
@@ -21,4 +18,7 @@ $domainObject = new Location(
         $updateLocationDto->getLongitude()
     )
 );
+
+http_response_code(200);
+header('Content-Type: text/plain');
 echo (string)$domainObject;

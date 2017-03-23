@@ -10,8 +10,10 @@ final class Geolocation
     private $latitude;
     private $longitude;
 
-    public function __construct(float $latitude, float $longitude)
-    {
+    public function __construct(
+        float $latitude,
+        float $longitude
+    ) {
         Assertion::between($latitude, -90, 90);
         Assertion::between($longitude, -180, 180);
         $this->latitude = $latitude;
@@ -20,6 +22,10 @@ final class Geolocation
 
     public function __toString(): string
     {
-        return sprintf('%f,%f', $this->latitude, $this->longitude);
+        return sprintf(
+            '%f,%f',
+            $this->latitude,
+            $this->longitude
+        );
     }
 }

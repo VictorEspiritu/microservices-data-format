@@ -3,8 +3,6 @@ declare(strict_types = 1);
 
 namespace CustomJSONSerialization;
 
-use function \GuzzleHttp\json_decode;
-
 final class UpdateLocation
 {
     private $address;
@@ -18,11 +16,8 @@ final class UpdateLocation
         $this->longitude = $longitude;
     }
 
-    public static function fromJson(string $rawJson): UpdateLocation
+    public static function fromData($data): UpdateLocation
     {
-        // Throws exceptions when deserialization is problematic
-        $data = json_decode($rawJson);
-
         if (!isset($data->address)) {
             throw BadRequest::missingField('address');
         }

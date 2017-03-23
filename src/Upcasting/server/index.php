@@ -10,7 +10,7 @@ $upcaster = new \Upcasting\UpdateLocationUpcaster();
 $rawJson = file_get_contents('php://input');
 
 $messageData = json_decode($rawJson);
-$messageVersion = $_SERVER['HTTP_X_MESSAGE_VERSION'];
+$messageVersion = (int)$_SERVER['HTTP_X_MESSAGE_VERSION'];
 
 $originalMessage = new Message($messageVersion, $messageData);
 

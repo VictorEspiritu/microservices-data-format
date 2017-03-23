@@ -10,14 +10,14 @@ final class UpdateLocationUpcaster
 {
     public function castUp(Message $message): Message
     {
-        if (!$message->isVersion(2)) {
-            return self::migrateToVersion2($message);
+        if ($message->version() < 2) {
+            return $this->migrateToVersion2($message);
         }
 
         return $message;
     }
 
-    private static function migrateToVersion2(Message $message): Message
+    private function migrateToVersion2(Message $message): Message
     {
         $data = $message->data();
 

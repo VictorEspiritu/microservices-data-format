@@ -13,7 +13,7 @@ $location = [
 ];
 
 $client = new Client();
-$response = $client->post('http://generic_json_server/', [
+$response = $client->post('http://schemaless_json_server/', [
     'body' => json_encode($location),
     'headers' => [
         'Content-Type' => 'application/json'

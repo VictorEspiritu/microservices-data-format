@@ -1,20 +1,20 @@
 version: '3'
 
 services:
-    generic_json_server:
+    schemaless_json_server:
         image: microservices-for-everyone/data_formats_base
         build: docker/base/
         volumes:
             - ./:/opt
-        command: php -S 0.0.0.0:80 -t src/GenericJSON/server/
+        command: php -S 0.0.0.0:80 -t src/SchemalessJSON/server/
 
-    generic_json_client:
+    schemaless_json_client:
         image: microservices-for-everyone/data_formats_base
         volumes:
             - ./:/opt
-        command: php src/GenericJSON/client.php
+        command: php src/SchemalessJSON/client.php
         depends_on:
-            - generic_json_server
+            - schemaless_json_server
 
     custom_json_serialization_server:
         image: microservices-for-everyone/data_formats_base
