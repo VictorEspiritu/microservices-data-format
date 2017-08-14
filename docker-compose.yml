@@ -2,14 +2,14 @@ version: '3'
 
 services:
     schemaless_json_server:
-        image: microservices-for-everyone/data_formats_base
+        image: microservicesforeveryone/data_formats_base
         build: docker/base/
         volumes:
             - ./:/opt
         command: php -S 0.0.0.0:80 -t src/SchemalessJSON/server/
 
     schemaless_json_client:
-        image: microservices-for-everyone/data_formats_base
+        image: microservicesforeveryone/data_formats_base
         volumes:
             - ./:/opt
         command: php src/SchemalessJSON/client.php
@@ -17,13 +17,13 @@ services:
             - schemaless_json_server
 
     custom_json_serialization_server:
-        image: microservices-for-everyone/data_formats_base
+        image: microservicesforeveryone/data_formats_base
         volumes:
             - ./:/opt
         command: php -S 0.0.0.0:80 -t src/CustomJSONSerialization/server/
 
     custom_json_serialization_client:
-        image: microservices-for-everyone/data_formats_base
+        image: microservicesforeveryone/data_formats_base
         volumes:
             - ./:/opt
         command: php src/CustomJSONSerialization/client.php
@@ -31,13 +31,13 @@ services:
             - custom_json_serialization_server
 
     protocol_buffers_compile:
-        image: microservices-for-everyone/communication_styles_base
+        image: microservicesforeveryone/communication_styles_base
         volumes:
             - ./:/opt
         command: vendor/bin/protobuf --include-descriptors -i . -o ./src src/ProtocolBuffers/server/meetup.proto
 
     protocol_buffers_server:
-        image: microservices-for-everyone/data_formats_base
+        image: microservicesforeveryone/data_formats_base
         volumes:
             - ./:/opt
         command: php -S 0.0.0.0:80 -t src/ProtocolBuffers/server/
@@ -45,7 +45,7 @@ services:
             - protocol_buffers_compile
 
     protocol_buffers_client:
-        image: microservices-for-everyone/communication_styles_base
+        image: microservicesforeveryone/communication_styles_base
         volumes:
             - ./:/opt
         command: php src/ProtocolBuffers/client.php
@@ -54,13 +54,13 @@ services:
             - protocol_buffers_compile
 
     upcasting_server:
-        image: microservices-for-everyone/data_formats_base
+        image: microservicesforeveryone/data_formats_base
         volumes:
             - ./:/opt
         command: php -S 0.0.0.0:80 -t src/Upcasting/server/
 
     upcasting_client:
-        image: microservices-for-everyone/communication_styles_base
+        image: microservicesforeveryone/communication_styles_base
         volumes:
             - ./:/opt
         command: php src/Upcasting/client.php
@@ -68,13 +68,13 @@ services:
             - upcasting_server
 
     json_schema_server:
-        image: microservices-for-everyone/data_formats_base
+        image: microservicesforeveryone/data_formats_base
         volumes:
             - ./:/opt
         command: php -S 0.0.0.0:80 -t src/JSONSchema/server/
 
     json_schema_client:
-        image: microservices-for-everyone/communication_styles_base
+        image: microservicesforeveryone/communication_styles_base
         volumes:
             - ./:/opt
         command: php src/JSONSchema/client.php
